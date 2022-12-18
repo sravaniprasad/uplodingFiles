@@ -23,19 +23,11 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex,WebRequest req){
 		
-		return new ResponseEntity<Object>(new ErrorMessage(ex.getMessage(),HttpStatus.NOT_FOUND,LocalDateTime.now()),HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>(new ErrorMessage(ex.getMessage(),HttpStatus.BAD_REQUEST,LocalDateTime.now()),HttpStatus.BAD_REQUEST);
 		
 		
 	}
 	
-	@ExceptionHandler(EmptyInputException.class)
-	public ResponseEntity<Object> handleEmptyInputException(EmptyInputException emptyInput,WebRequest req){
-		
-		//return new ResponseEntity<String>("Input field is empty, please provide the body",HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<Object>(new ErrorMessage(emptyInput.getMessage(),HttpStatus.BAD_REQUEST,LocalDateTime.now()),HttpStatus.BAD_REQUEST);
-		
-		
-	}
 	
 //	private static final long serialVersionUID = 1527768013800578160L;
 //	@ResponseStatus(HttpStatus.BAD_REQUEST)

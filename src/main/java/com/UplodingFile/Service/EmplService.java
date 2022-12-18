@@ -15,8 +15,10 @@ public interface EmplService {
 	Employee UpdateEmployee(Employee employee, Integer InvoiceNo);
 	void deleteEmployee(int InvoiceNo);
 
-	Employee getEmployeeByIdName(Employee employee, int invoiceNo);
+	
+	Employee findById(int invoiceNo) ;
 
-	Employee findById(int invoiceNo);
+	List<Employee> getAllEmployees();
 
+	
 	}

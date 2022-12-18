@@ -5,12 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
+
 @Entity
+@Builder
 public class Employee {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Integer empId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+
+	private Integer InvoiceNo;
 	
 	private String empname;
 	
@@ -21,11 +25,11 @@ public class Employee {
 	
 
 	public Integer getInvoiceNo() {
-		return empId;
+		return InvoiceNo;
 	}
  
 	public void setInvoiceNo(Integer invoiceNo) {
-		empId = invoiceNo;
+		InvoiceNo = invoiceNo;
 	}
 
 	public String getEmpname() {
@@ -54,7 +58,7 @@ public class Employee {
 
 	public Employee(Integer invoiceNo, String empname, String empaddress, String emprole) {
 		super();
-		this.empId = invoiceNo;
+		this.InvoiceNo = invoiceNo;
 		this.empname = empname;
 		this.empaddress = empaddress;
 		this.emprole = emprole;

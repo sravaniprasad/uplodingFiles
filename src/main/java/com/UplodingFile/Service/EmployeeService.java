@@ -35,13 +35,16 @@ public class EmployeeService {
 	}
 	
 	
-	public List<Employee> getAllEmployees(){
-		List<Employee>emplist=empRepo.findAll();
-		if(emplist.isEmpty())
-			throw new UserNotFoundException("List is empty, please upload the file");
-		return emplist;
-		//return this.empRepo.findAll();
-	}
+//	public List<Employee> getAllEmployees(){
+//		List<Employee>emplist=empRepo.findAll();
+//		if(emplist.isEmpty())
+//			throw new UserNotFoundException("List is empty, please upload the file");
+//		return emplist;
+//		//return this.empRepo.findAll();
+//	}
+
+
+	
 	}
 	
 

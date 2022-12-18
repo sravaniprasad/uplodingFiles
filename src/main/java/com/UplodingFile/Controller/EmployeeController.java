@@ -1,7 +1,6 @@
 package com.UplodingFile.Controller;
 
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.UplodingFile.Entity.Employee;
-import com.UplodingFile.Entity.Student;
-import com.UplodingFile.Exception.EmptyInputException;
+import com.UplodingFile.Exception.ResourceNotFoundException;
 import com.UplodingFile.Exception.UserNotFoundException;
 import com.UplodingFile.Helper.ExclHelper;
-import com.UplodingFile.Repository.EmployeeRepo;
 import com.UplodingFile.Service.EmplService;
 import com.UplodingFile.Service.EmployeeService;
-import com.UplodingFile.Service.StudentService;
+import com.UplodingFile.ServiceImplementation.EmployeeServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -40,14 +37,12 @@ public class EmployeeController {
 	
 	
 	@Autowired
-	private StudentService studentService;
+	private EmployeeServiceImpl empservImpl;
 
 	
 	@Autowired
 	private EmplService emplservice;
 	
-	@Autowired
-	private EmployeeRepo employeerepo;
 	
 	
 	public EmployeeController(EmplService emplservice) {
@@ -73,11 +68,12 @@ public class EmployeeController {
 		return new ResponseEntity<Employee>(emplservice.getEmployeeById(InvoiceNo), HttpStatus.OK);
 	}
 	
+	
     //uploading file
 	@PostMapping("/employee/upload")
-	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws UserNotFoundException{
+	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws UserNotFoundException, InterruptedException{
 		
-		
+		Thread.sleep(5000);
 		if(file.isEmpty()) {
 			//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not inserted!!! pease upload the file");
 			throw new UserNotFoundException("file is not uploaded!! upload the file to see the records");
@@ -86,19 +82,14 @@ public class EmployeeController {
 			
 			this.empServ.save(file);
 			
-			return ResponseEntity.ok(Map.of("message","File is Uploaded. Records are inserted into DataBase"));
-			
+			return ResponseEntity.ok(Map.of("message","File is Uploaded. Records are inserted into DataBase"));	
 		}
-		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Data not inserted due to BADREQUEST");
-		
 		}
-	
-
 //get all employees	
 	@GetMapping("/employee")
-	public List<Employee> getAllEmployee(){
-		return this.empServ.getAllEmployees();
+	public List<Employee> getAllEmployees(){
+		return empservImpl.getAllEmployees();
 	}
 
 	
@@ -121,34 +112,16 @@ public class EmployeeController {
 		return ResponseEntity.ok(Map.of("message","Details of "+InvoiceNo+ " are Deleted"));
 		
 	}
-	
 
-	
-	
-
-@PostMapping("/searchEmployee/{InvoiceNo}")
-public ResponseEntity<?> getEmployeeByIdName(@PathVariable ("InvoiceNo") int InvoiceNo,@RequestBody Employee employee) throws UserNotFoundException{
-
-	
-	return new ResponseEntity<Employee>(emplservice.getEmployeeByIdName(employee,InvoiceNo), HttpStatus.OK);
-	
-	}
- 
-
-	 
 //search Employee byId in body
 	@PostMapping("/searchData")
 	public ResponseEntity<?> fetchData(@RequestBody Employee employee){
-
-		Employee e=emplservice.findById((int)employee.getInvoiceNo());
-		
-			return new  ResponseEntity<Employee>(e, HttpStatus.OK);
-			//throw new  EmptyInputException("Input field is empty");
-		
-			
+		String empstr = String.valueOf(employee.getInvoiceNo());
+		if (employee.getInvoiceNo()==null||empstr.equals("")) {
+				throw new UserNotFoundException("please provide empNo!!!!");
 		}
-		
-		
-		
-		
+		Employee e = emplservice.findById(employee.getInvoiceNo());
+		return new ResponseEntity<Employee>(e, HttpStatus.OK);
 	}
+		
+}		
