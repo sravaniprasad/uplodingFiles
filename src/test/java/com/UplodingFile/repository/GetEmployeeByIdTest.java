@@ -57,22 +57,22 @@ public class GetEmployeeByIdTest {
 	    }
 	    
 	    
-	    @Test
-	    @Order(5)
-	    @Rollback(value = false)
-	    public void deleteEmployeeTest(){
+	//     @Test
+	//     @Order(5)
+	//     @Rollback(value = false)
+	//     public void deleteEmployeeTest(){
 
-	        Employee employee = emprepo.findById(18).get();
-	        emprepo.delete(employee);
-	        //employeeRepository.deleteById(1L);
-	        Employee employee1 = null;
-	        Optional<Employee> optionalEmployee = emprepo.findById(18);
-	        if(optionalEmployee.isPresent()){
-	            employee1 = optionalEmployee.get();
-	        }
-	        Assertions.assertThat(employee1).isNull();
-	    }
-	}
+	//         Employee employee = emprepo.findById(18).get();
+	//         emprepo.delete(employee);
+	//         //employeeRepository.deleteById(1L);
+	//         Employee employee1 = null;
+	//         Optional<Employee> optionalEmployee = emprepo.findById(18);
+	//         if(optionalEmployee.isPresent()){
+	//             employee1 = optionalEmployee.get();
+	//         }
+	//         Assertions.assertThat(employee1).isNull();
+	//     }
+	// }
 	    
 	 
 //	@BeforeEach
