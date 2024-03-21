@@ -52,7 +52,7 @@ public class EmployeeController {
 	
 	
 	//Create employee
-	@PostMapping("/employee")
+	@PostMapping("/employee/")
 	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
 		
 		return new ResponseEntity<Employee>(emplservice.saveEmployee(employee),HttpStatus.CREATED);
