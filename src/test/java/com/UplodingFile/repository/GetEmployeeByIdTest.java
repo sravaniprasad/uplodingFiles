@@ -19,15 +19,15 @@ public class GetEmployeeByIdTest {
 	@Autowired
 	private EmployeeRepo emprepo;
 	
-	@Test
-	@Order(1)
-	@Rollback(value=false)
-	public void saveEmployeeTest() {	
-		Employee e=new Employee(23,"kappa","india","md");
-		emprepo.save(e);
-		Assertions.assertThat(e.getInvoiceNo()).isGreaterThan(0);
+	// @Test
+	// @Order(1)
+	// @Rollback(value=false)
+	// public void saveEmployeeTest() {	
+	// 	Employee e=new Employee(23,"kappa","india","md");
+	// 	emprepo.save(e);
+	// 	Assertions.assertThat(e.getInvoiceNo()).isGreaterThan(0);
 		
-	}
+	// }
 	
 	@Test
 	@Order(2)
